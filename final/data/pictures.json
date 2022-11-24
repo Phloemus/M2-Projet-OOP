@@ -1,0 +1,12 @@
+[
+   {
+      "filename" : "fichier.jpg",
+      "id" : 2,
+      "radioId" : 1
+   },
+   {
+      "filename" : "fichier.jpg",
+      "id" : 3,
+      "radioId" : 1
+   }
+]

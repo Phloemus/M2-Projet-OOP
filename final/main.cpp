@@ -1,3 +1,4 @@
+
 /*
     Projet de Programmation Orientée Objet
 
@@ -7,6 +8,8 @@
     Code source de l'application base de donnée 
     orientée objet. Voir les fonctionnalités 
     supportées dans README.md
+
+    compilation: g++ -o main main.cpp classes.o -ljsoncpp
 
     ~~~~~~~~~~~~
     Auteurs:
@@ -20,11 +23,12 @@
 
 
 #include<iostream>
+#include<memory>
 #include<jsoncpp/json/json.h>
 
-#include "database.h"
+#include "classes.hpp"
 
-// compilation : g++ -o main main.cpp database.o -ljsoncpp
+// compilation : g++ -o main main.cpp classes.o -ljsoncpp
 
 int main() {
 
@@ -121,6 +125,10 @@ int main() {
 
                             while(bSubMenuAlive) {
 
+                                std::string filename;
+                                int pictureId;
+                                std::string reportContent;
+
                                 std::cout << "Radiographie " << selectedRadioId << " selectionnee" << std::endl;
                                 std::cout << "Actions possibles : " << std::endl;
                                 std::cout << " General : " << std::endl;
@@ -130,10 +138,11 @@ int main() {
                                 std::cout << "   [3]: Afficher le rapport medical associé" << std::endl;
                                 std::cout << " Ajouter/Modifier : " << std::endl;
                                 std::cout << "   [4]: Ajouter un cliché" << std::endl;
-                                std::cout << "   [5]: Modifier le rapport" << std::endl;
+                                std::cout << "   [5]: Ajouter un rapport" << std::endl;
+                                std::cout << "   [6]: Modifier le rapport" << std::endl;
                                 std::cout << " Supprimer : " << std::endl;
-                                std::cout << "   [6]: Supprimer un cliché" << std::endl;
-                                std::cout << "   [7]: Supprimer la radiographie" << std::endl;
+                                std::cout << "   [7]: Supprimer un cliché" << std::endl;
+                                std::cout << "   [8]: Supprimer la radiographie" << std::endl;
 
                                 std::cin >> actionId;
 
@@ -145,34 +154,50 @@ int main() {
                                         }
                                     case 2:
                                         {
-                                            // TODO : Problem here data leak
                                             d.showPictureList(selectedRadioId);
                                             break;
                                         }
                                     case 3:
                                         {   
-                                            // TODO : Problem here data leak
                                             std::cout << "Pour accèder au rapport, entrez votre mot de passe personnel" << std::endl;
                                             std::string password;
                                             std::cin >> password;
-                                            d.showReport(selectedRadioId, password); //! by the way. the doctor do not load a radio with a report because report is not set in Doctor::loadRadiography
+                                            d.showReport(selectedRadioId, password);
                                             break;
                                         }
                                     case 4:
                                         {
-                                            
+                                            std::cout << "Ajouter de cliche" << std::endl;
+                                            std::cout << "indiquer le nom du fichier" << std::endl;
+                                            std::cin >> filename;
+                                            d.addPicture(selectedRadioId, filename); //! ajoute bien la picture au fichier mais n'affiche correctement la liste de pictures..
                                             break;
                                         }
                                     case 5:
                                         {
+                                            d.addReport(selectedRadioId);
                                             break;
                                         }
                                     case 6:
                                         {
+                                            std::cout << "indiquer le texte a ajouter dans le rapport" << std::endl;
+                                            std::cin >> reportContent;
+                                            d.modifyReport(selectedRadioId, reportContent);
                                             break;
                                         }
                                     case 7:
+                                        {   
+                                            // works
+                                            d.showPictureList(selectedRadioId);
+                                            std::cout << "Indiquer l'identifiant de la photo a supprimer" << std::endl;
+                                            std::cin >> pictureId;
+                                            d.deletePicture(pictureId);
+                                            break;
+                                        }
+                                    case 8:
                                         {
+                                            // works
+                                            // TODO : implement the complete deletion of the file
                                             if(d.deleteRadiography(selectedRadioId)) {
                                                 bSubMenuAlive = !bSubMenuAlive;
                                             } else {

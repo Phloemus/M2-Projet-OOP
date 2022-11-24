@@ -1,0 +1,15 @@
+[
+   {
+      "date" : 
+      {
+         "day" : 13,
+         "month" : 12,
+         "year" : 22
+      },
+      "doctorId" : 0,
+      "id" : 1,
+      "patientId" : 1,
+      "state" : "effectue",
+      "type" : "Test2"
+   }
+]
