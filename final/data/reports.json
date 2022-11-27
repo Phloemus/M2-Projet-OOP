@@ -1,3 +1,12 @@
 [
-   
+   {
+      "content" : "\n== Rapport medical ==\n Patient: Brieuc \n Pathologie: COVID-19\n Traitement: chloroquine\n\n Un petit coup de chloroquine et ca repart",
+      "id" : 1,
+      "radioId" : 2
+   },
+   {
+      "content" : "\n== Nouveau Rapport ==\n",
+      "id" : 2,
+      "radioId" : 1
+   }
 ]

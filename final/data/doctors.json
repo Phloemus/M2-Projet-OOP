@@ -2,7 +2,13 @@
    {
       "id" : 0,
       "name" : "Yahadih",
-      "password" : "1234",
+      "password" : "12341234",
+      "status" : "Dr"
+   },
+   {
+      "id" : 1,
+      "name" : "D.Raoult",
+      "password" : "chloroquine",
       "status" : "Dr"
    }
 ]

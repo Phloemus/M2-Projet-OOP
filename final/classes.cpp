@@ -1,7 +1,26 @@
 
 /*
 
-    compilation: g++ -c classes.cpp -ljsoncpp
+    Projet de Programmation Orientée Objet
+
+    ~~~~~~~~~~~~
+    classes.cpp
+
+    Definition des classes utilisées dans le projet base de données.
+    Voir l'arborescence des classes dans le fichier README.md
+
+    ~~~~~~~~~~~~
+    Compilation
+
+    g++ -c classes.cpp -ljsoncpp
+
+    ~~~~~~~~~~~~
+    Auteurs:
+        Brieuc Quemeneur
+        Florent Boyer
+
+    ~~~~~~~~~~~~
+    Licence-MIT
 
 */
 
@@ -9,43 +28,100 @@
 #include<string>
 #include<fstream>
 #include<vector>
+#include <bits/stdc++.h>
 #include<memory>
 #include<jsoncpp/json/json.h>
 
 #include "classes.hpp"
 
-/****** Date Class Definition *****************************************************/
 
+
+/****************************************************************************************************************
+  _____            _               _____   _                     
+ |  __ \          | |             / ____| | |                    
+ | |  | |   __ _  | |_    ___    | |      | |   __ _   ___   ___ 
+ | |  | |  / _` | | __|  / _ \   | |      | |  / _` | / __| / __|
+ | |__| | | (_| | | |_  |  __/   | |____  | | | (_| | \__ \ \__ \
+ |_____/   \__,_|  \__|  \___|    \_____| |_|  \__,_| |___/ |___/
+
+****************************************************************************************************************/
+
+// Constructors
 Date::Date() { this->day = 1; this->month = 1; this->year = 1970; }
 Date::Date(int d, int m, int y) { day = d; month = m; year = y; }
 
+// setters and getters
 int Date::getDay() { return day; }
 int Date::getMonth() { return month; }
 int Date::getYear() { return year; }
 
+// methods
 std::string Date::getStringDate() {
     std::string date;
     date = std::to_string(day) + "/" + std::to_string(month) + "/" + std::to_string(year);
     return date;
 }
 
-/****** Report Class Definition ***************************************************/
 
+
+
+/****************************************************************************************************************
+  _____                                  _        _____   _                     
+ |  __ \                                | |      / ____| | |                    
+ | |__) |   ___   _ __     ___    _ __  | |_    | |      | |   __ _   ___   ___ 
+ |  _  /   / _ \ | '_ \   / _ \  | '__| | __|   | |      | |  / _` | / __| / __|
+ | | \ \  |  __/ | |_) | | (_) | | |    | |_    | |____  | | | (_| | \__ \ \__ \
+ |_|  \_\  \___| | .__/   \___/  |_|     \__|    \_____| |_|  \__,_| |___/ |___/
+                 | |                                                            
+                 |_|                                                            
+
+****************************************************************************************************************/
+
+// Constructors
 Report::Report() {}
 Report::Report(int id, std::string content) { this->id = id; this->content = content; }
 
+// getters and setters
 std::string Report::getContent() { return content; }
 
-/****** Picture Class Definiton ****************************************************/
 
+
+/****************************************************************************************************************
+  _____    _          _                              _____   _                     
+ |  __ \  (_)        | |                            / ____| | |                    
+ | |__) |  _    ___  | |_   _   _   _ __    ___    | |      | |   __ _   ___   ___ 
+ |  ___/  | |  / __| | __| | | | | | '__|  / _ \   | |      | |  / _` | / __| / __|
+ | |      | | | (__  | |_  | |_| | | |    |  __/   | |____  | | | (_| | \__ \ \__ \
+ |_|      |_|  \___|  \__|  \__,_| |_|     \___|    \_____| |_|  \__,_| |___/ |___/
+
+****************************************************************************************************************/
+
+// Constructors
 Picture::Picture() {}
 Picture::Picture(int id, std::string filename) { this->id = id; this->filename = filename; }
 
+// getters and setters
 int Picture::getId() { return id; }
 std::string Picture::getFilename() { return filename; }
 
-/****** Radiography class Definition ***********************************************/
 
+
+
+
+/****************************************************************************************************************
+  _____                _   _                                          _                  _____   _                     
+ |  __ \              | | (_)                                        | |                / ____| | |                    
+ | |__) |   __ _    __| |  _    ___     __ _   _ __    __ _   _ __   | |__    _   _    | |      | |   __ _   ___   ___ 
+ |  _  /   / _` |  / _` | | |  / _ \   / _` | | '__|  / _` | | '_ \  | '_ \  | | | |   | |      | |  / _` | / __| / __|
+ | | \ \  | (_| | | (_| | | | | (_) | | (_| | | |    | (_| | | |_) | | | | | | |_| |   | |____  | | | (_| | \__ \ \__ \
+ |_|  \_\  \__,_|  \__,_| |_|  \___/   \__, | |_|     \__,_| | .__/  |_| |_|  \__, |    \_____| |_|  \__,_| |___/ |___/
+                                        __/ |                | |               __/ |                                   
+                                       |___/                 |_|              |___/                                    
+
+****************************************************************************************************************/
+
+
+// constructors
 Radiography::Radiography() {}
 Radiography::Radiography(int id, std::string type, std::string state, int patientId, int doctorId, Date date) { 
     this->id = id;
@@ -69,7 +145,6 @@ Radiography::Radiography(int id, std::string type, std::string state, int patien
     for(Json::Value::iterator it = pictureValue.begin(); it != pictureValue.end(); it++) {
 
         if(this->id == (*it)["radioId"].asInt()) {
-            //TODO : Still have a problem with the first id which is not injected correctly to the Picture instance
             Picture p = Picture((*it)["id"].asInt(), (*it)["filename"].asString());
             this->pictures.push_back(p);
         }
@@ -96,6 +171,8 @@ Radiography::Radiography(int id, std::string type, std::string state, int patien
     file.close();
 }
 
+
+// getters and setters
 int Radiography::getId() { return id; }
 int Radiography::getDoctorId() { return doctorId; }
 std::string Radiography::getType() { return type; }
@@ -105,13 +182,30 @@ Date Radiography::getDate() { return date; }
 std::vector<Picture>& Radiography::getPictures() { return pictures; }
 Report Radiography::getReport() { return report; }
 
+
+// methods
 void Radiography::addPicture(Picture picture) { this->pictures.push_back(picture); }
 
-/****** Patient class Definition ***************************************************/
 
+
+
+
+/****************************************************************************************************************
+  _____            _     _                  _        _____   _                     
+ |  __ \          | |   (_)                | |      / ____| | |                    
+ | |__) |   __ _  | |_   _    ___   _ __   | |_    | |      | |   __ _   ___   ___ 
+ |  ___/   / _` | | __| | |  / _ \ | '_ \  | __|   | |      | |  / _` | / __| / __|
+ | |      | (_| | | |_  | | |  __/ | | | | | |_    | |____  | | | (_| | \__ \ \__ \
+ |_|       \__,_|  \__| |_|  \___| |_| |_|  \__|    \_____| |_|  \__,_| |___/ |___/
+
+****************************************************************************************************************/
+
+// constructors
 Patient::Patient() {}
 Patient::Patient(int id, std::string name) { this->id = id; this->name = name; }
 
+
+// methods
 void Patient::loadRadiographies() {
 
     std::vector<Radiography> tempRadios;
@@ -182,21 +276,41 @@ bool Patient::load(std::string name, std::string password) {
     return false;
 }
 
+
+// getters and setters
 int Patient::getId() { return id; }
 std::string Patient::getName() { return name; }
 std::vector<Radiography>& Patient::getRadiographies() { return radiographies; }
 
 
-/****** Doctor class Definition ****************************************************/
 
+
+
+/****************************************************************************************************************
+     _____                   _                       _____   _                     
+    |  __ \                 | |                     / ____| | |                    
+    | |  | |   ___     ___  | |_    ___    _ __    | |      | |   __ _   ___   ___ 
+    | |  | |  / _ \   / __| | __|  / _ \  | '__|   | |      | |  / _` | / __| / __|
+    | |__| | | (_) | | (__  | |_  | (_) | | |      | |____  | | | (_| | \__ \ \__ \
+    |_____/   \___/   \___|  \__|  \___/  |_|       \_____| |_|  \__,_| |___/ |___/
+ 
+****************************************************************************************************************/
+
+
+// constructors
 Doctor::Doctor() {}
 Doctor::Doctor(int id, std::string name, std::string status, std::string password) { this->id = id; this->name = name; this->status = status; this->password = password; }
+
+
+// getters and setters
 int Doctor::getId() { return id; }
 std::string Doctor::getName() { return name; }
 std::string Doctor::getStatus() { return status; }
 std::string Doctor::getPassword() { return password; }
 std::vector<Radiography>& Doctor::getRadiographies() { return radiographies; }
 
+
+// methods
 void Doctor::loadRadiographies() {
 
     std::vector<Radiography> tempRadios;
@@ -233,12 +347,49 @@ void Doctor::loadRadiographies() {
     this->radiographies = tempRadios;
 }
 
-void Doctor::showRadiographies() {
+void Doctor::showRadiographies(int sortType) {
+
+    std::vector<Radiography> radios = this->getRadiographies();
+
+    switch(sortType) {
+
+        // Sort by Patient id
+        case 1:
+            std::sort(radios.begin(), radios.end(),
+                [](Radiography& r1, Radiography& r2) {
+                    return r1.getPatientId() < r2.getPatientId();
+                }
+            );
+            break;
+
+        // Srot by Radio id
+        case 2:
+            std::sort(radios.begin(), radios.end(),
+                [](Radiography& r1, Radiography& r2) {
+                    return r1.getId() < r2.getId();
+                }
+            );
+            break;
+
+        // Sort by Date 
+        case 3:
+            std::sort(radios.begin(), radios.end(), 
+                [](Radiography& r1, Radiography& r2) {
+                    return r1.getDate().getYear() < r2.getDate().getYear();
+                }
+            );
+            break;
+
+        default:
+            return;
+            break;
+    }
+
     std::cout << " ID       | TYPE        | ETAT              | DATE      | PATIENT ID         " << std::endl;
-    for(int i=0; i < getRadiographies().size(); i++) {
-        std::cout << " " << getRadiographies().at(i).getId() << "         " << getRadiographies().at(i).getType() << "          "
-                << getRadiographies().at(i).getState() << "         " << getRadiographies().at(i).getDate().getStringDate() 
-                << "      " << getRadiographies().at(i).getPatientId() << std::endl;
+    for(int i=0; i < radios.size(); i++) {
+        std::cout << " " << radios.at(i).getId() << "         " << radios.at(i).getType() << "          "
+                << radios.at(i).getState() << "         " << radios.at(i).getDate().getStringDate() 
+                << "      " << radios.at(i).getPatientId() << std::endl;
     }
 }
 
@@ -258,7 +409,21 @@ bool Doctor::deleteRadiography(int id) {
 
             if(((*it)["doctorId"].asInt() == this->id) && ((*it)["id"].asInt() == id)) {
                 
+                // fermeture du flux pour liberer l'accès au fichier json pour la fonction deletePicture
+                file.close();
+                
                 // TODO: delete the pictures linked to the radiography
+
+                /*
+                std::cout << "Processus de deletion en cours" << std::endl;
+                for(int i=0; i < this->getRadiographies()[id].getPictures().size(); i++) {
+                    int pictureId = this->getRadiographies()[id].getPictures()[i].getId();
+                    std::cout << "Photo " << pictureId << " en cours de suppression" << std::endl;
+                    this->deletePicture(pictureId);
+                    std::cout << "Photo " << pictureId << " supprimee" << std::endl;
+                }*/
+
+                
 
                 // TODO: delete the report linked to the radiography
 
@@ -280,7 +445,6 @@ bool Doctor::deleteRadiography(int id) {
 
         }
 
-        file.close();
     }
 
     this->loadRadiographies();
@@ -456,7 +620,7 @@ void Doctor::showReport(int radioId, std::string pwd) {
         return;
     }
     if(this->password != pwd) {
-        std::cout << "Mot de passe incorrect. Accès refusé" << std::endl;
+        std::cout << "\n\033[1;32mMot de passe incorrect. Accès refusé\033[0m" << std::endl;
         return;
     }
     std::cout << "Rapport médical : " << std::endl;
@@ -603,7 +767,7 @@ void Doctor::addPicture(int radioId, std::string filename) {
     outputFileStream.close();
 
     // Reload the whole radiography vector to get fresh data
-    this->loadRadiographies(); //! This should reload the whole radiographies and their pictures
+    this->loadRadiographies();
 }
 
 void Doctor::deletePicture(int pictureId) {

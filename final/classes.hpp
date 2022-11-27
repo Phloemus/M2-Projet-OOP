@@ -1,4 +1,21 @@
+/*
+    Projet de Programmation Orientée Objet
 
+    ~~~~~~~~~~~~
+    classes.hpp
+
+    Déclaration des classes utilisées dans le projet base de données.
+    Voir l'arborescence des classes dans le fichier README.md
+
+    ~~~~~~~~~~~~
+    Auteurs:
+        Brieuc Quemeneur
+        Florent Boyer
+
+    ~~~~~~~~~~~~
+    Licence-MIT
+
+*/
 
 #include<iostream>
 #include<string>
@@ -92,8 +109,6 @@ class Radiography {
 
 class Patient {
 
-    // TODO : Peut etre amélioré, si y a deux personne avec le meme nom ca bug..
-
     private:
         int id;
         std::string name;
@@ -129,13 +144,14 @@ class Doctor {
     public:
         Doctor();
         Doctor(int, std::string, std::string, std::string);
+
         int getId();
         std::string getName();
         std::string getStatus();
         std::string getPassword();
         std::vector<Radiography>& getRadiographies();
 
-        void showRadiographies();
+        void showRadiographies(int);
         bool deleteRadiography(int);
         bool addRadiography(std::string, std::string, int, Date);
 

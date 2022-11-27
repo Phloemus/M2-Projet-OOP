@@ -30,7 +30,18 @@
 
 // compilation : g++ -o main main.cpp classes.o -ljsoncpp
 
+void waitInput() {
+    std::cin.ignore();
+    std::cin.clear();
+    do {
+        std::cout << "\n Press any key to continue...";
+    } while(std::cin.get() != '\n');
+    system("clear");
+}
+
 int main() {
+
+    system("clear");
 
     int selectedMode;
     int subSelectedMode;
@@ -39,7 +50,10 @@ int main() {
     std::string password;
     std::string name;
 
-    std::cout << "Selectionner une option de Login\n [1]-Patient\n [2]-Medecin" << std::endl;
+    std::cout << "\n####################################" 
+              << "\n#         Base de Donnees          #"
+              << "\n####################################\n\n" << std::endl;
+    std::cout << "Selectionner une option de Login\n\n  \033[1;32m[1]-Patient\033[0m\n  \033[1;36m[2]-Medecin\033[0m" << std::endl;
     std::cin >> selectedMode;
 
     if(selectedMode == 1) {
@@ -50,6 +64,9 @@ int main() {
 
         Patient p;
         if(p.load(name, password)) {
+
+            system("clear");
+
             // Cas ou le patient est log avec succes
 
             std::cout << "Bonjour " << p.getName() <<std::endl;
@@ -63,7 +80,7 @@ int main() {
             }
 
         } else {
-            std::cout << "mot de passe incorrect" << std::endl;
+            std::cout << "\033[1;31m mot de passe ou identifiant incorrect \033[0m" << std::endl;
         }
     }
 
@@ -77,29 +94,37 @@ int main() {
 
         if(d.load(name, password)) {
 
-            while(alive) {
+            system("clear");
 
-                std::cout << "Connecté en tant que " << d.getStatus() << " " <<  d.getName() << std::endl;
-                std::cout << "Actions possibles : " << std::endl;
+            do {
+                
+                std::cout << "\n####################################" 
+                          << "\n    Bienvenue  " << d.getStatus() << " " <<  d.getName()
+                          << "\n####################################\n\n" << std::endl;
+
                 std::cout << " Affichage : " << std::endl;
-                std::cout << "   [1]: Afficher la liste de vos radiographies" << std::endl;
+                std::cout << "   \033[1;36m[1]: Afficher la liste de vos radiographies\033[0m\n" << std::endl;
                 std::cout << " Selection/Ajout : " << std::endl;
-                std::cout << "   [2]: Selectionner une radiographie" << std::endl;
-                std::cout << "   [3]: Ajouter une radiographie" << std::endl;
+                std::cout << "   \033[1;32m[2]: Selectionner une radiographie" << std::endl;
+                std::cout << "   [3]: Ajouter une radiographie\033[0m\n" << std::endl;
                 std::cout << " Mon Compte : " << std::endl;
-                std::cout << "   [4]: Changer de mot de passe" << std::endl;
-                std::cout << "   [5]: Se Deconnecter" << std::endl;
+                std::cout << "   \033[1;34m[4]: Changer de mot de passe" << std::endl;
+                std::cout << "   [5]: Se Deconnecter\033[0m\n" << std::endl;
                 std::cout << " Extras : " << std::endl;
-                std::cout << "   [6]: Afficher l'aide" << std::endl;
+                std::cout << "   \033[1;33m[6]: Afficher l'aide\033[0m\n" << std::endl;
 
                 std::cin >> subSelectedMode;
+                int sortType = 0;
 
                 switch(subSelectedMode) {
                     
                     // Displaying radiography Form
                     case 1:
                         {
-                            d.showRadiographies();
+                            std::cout << "choisir le type de tri vous souhaitez : " << std::endl;
+                            std::cout << " [1]: Par patientId \n [2]: Par radioId \n [3]: Par date" << std::endl;
+                            std::cin >> sortType;                            
+                            d.showRadiographies(sortType);
                             break;
                         }
 
@@ -108,7 +133,7 @@ int main() {
                         {
                             int selectedRadioId;
                             std::cout << "Indiquez quel radiographie vous voulez selectionner" << std::endl;
-                            d.showRadiographies();
+                            d.showRadiographies(2);
 
                             std::cin >> selectedRadioId;
 
@@ -121,28 +146,36 @@ int main() {
                                 }
                             }
 
+                            if(bSubMenuAlive == false) {
+                                std::cout << "\033[1;31m\nVous n'avez pas l'autorisation d'acceder a cette radiographie\033[0m" << std::endl;
+                                break;
+                            } else {
+                                system("clear");
+                            }
+
                             int actionId;
 
-                            while(bSubMenuAlive) {
+                            do {
 
                                 std::string filename;
                                 int pictureId;
                                 std::string reportContent;
 
-                                std::cout << "Radiographie " << selectedRadioId << " selectionnee" << std::endl;
-                                std::cout << "Actions possibles : " << std::endl;
+                                std::cout << "\n####################################" 
+                                          << "\n#         Radiographie " << selectedRadioId << "           #"
+                                          << "\n####################################\n\n" << std::endl;
                                 std::cout << " General : " << std::endl;
-                                std::cout << "   [1]: Quitter la selection" << std::endl;
+                                std::cout << "   \033[1;35m[1]: Quitter la selection\33[0m\n" << std::endl;
                                 std::cout << " Affichage : " << std::endl;
-                                std::cout << "   [2]: Afficher la liste des clichés" << std::endl;
-                                std::cout << "   [3]: Afficher le rapport medical associé" << std::endl;
+                                std::cout << "   \033[1;36m[2]: Afficher la liste des clichés" << std::endl;
+                                std::cout << "   [3]: Afficher le rapport medical associé\33[0m\n" << std::endl;
                                 std::cout << " Ajouter/Modifier : " << std::endl;
-                                std::cout << "   [4]: Ajouter un cliché" << std::endl;
+                                std::cout << "   \033[1;32m[4]: Ajouter un cliché" << std::endl;
                                 std::cout << "   [5]: Ajouter un rapport" << std::endl;
-                                std::cout << "   [6]: Modifier le rapport" << std::endl;
+                                std::cout << "   [6]: Modifier le rapport\33[0m\n" << std::endl;
                                 std::cout << " Supprimer : " << std::endl;
-                                std::cout << "   [7]: Supprimer un cliché" << std::endl;
-                                std::cout << "   [8]: Supprimer la radiographie" << std::endl;
+                                std::cout << "   \033[1;31m[7]: Supprimer un cliché" << std::endl;
+                                std::cout << "   [8]: Supprimer la radiographie\033[0m\n" << std::endl;
 
                                 std::cin >> actionId;
 
@@ -170,7 +203,7 @@ int main() {
                                             std::cout << "Ajouter de cliche" << std::endl;
                                             std::cout << "indiquer le nom du fichier" << std::endl;
                                             std::cin >> filename;
-                                            d.addPicture(selectedRadioId, filename); //! ajoute bien la picture au fichier mais n'affiche correctement la liste de pictures..
+                                            d.addPicture(selectedRadioId, filename);
                                             break;
                                         }
                                     case 5:
@@ -197,7 +230,6 @@ int main() {
                                     case 8:
                                         {
                                             // works
-                                            // TODO : implement the complete deletion of the file
                                             if(d.deleteRadiography(selectedRadioId)) {
                                                 bSubMenuAlive = !bSubMenuAlive;
                                             } else {
@@ -213,7 +245,12 @@ int main() {
                                         }
                                 }
 
-                            }
+                                if(bSubMenuAlive) {
+                                    waitInput();
+                                }
+
+                            } while(bSubMenuAlive);
+
                             break;
                         }
                     case 3:
@@ -221,9 +258,11 @@ int main() {
                             int selectedId;
                             std::string type;
                             std::string state;
+
                             int day = 1;
                             int month = 1;
                             int year = 1970;
+
                             Date date = Date();
                             
                             std::cout << "Liste des patients" << std::endl;
@@ -247,20 +286,8 @@ int main() {
                             d.addRadiography(type, state, selectedId, Date(day, month, year));
 
                             break;
-                        }/*
-                    case 3:
-                        {
-                            int rmRadioId;
-                            std::cout << "Indiquer quelle radiographie supprimer " << std::endl;
-                            std::cin >> rmRadioId;
-                            if(d.deleteRadiography(rmRadioId)) {
-                                std::cout << "Radiographie " << rmRadioId << " supprimée avec succès" << std::endl;
-                            } else {
-                                std::cout << "La radiographie n'a pas pu être supprimée. Elle est soit inexistante ou vous n'avez pas les droits de la supprimer" << std::endl;
-                            }
-                            break;
                         }
-                    */
+
                     // Change password
                     case 4:
                         {
@@ -281,7 +308,7 @@ int main() {
 
                     case 6:
                         {
-                            std::cout << "This is the help page" << std::endl;
+                            std::cout << "Page d'aide : \n Merci de lire le readme.md  :) " << std::endl;
                             break;
                         }
 
@@ -292,11 +319,17 @@ int main() {
                             break;
                         }
                 }
-            }
+
+                waitInput();
+
+            } while(alive);
 
         } else {
-            std::cout << "mot de passe incorrect" << std::endl;
+
+            std::cout << "\033[1;31m mot de passe  ou identifiant incorrect (ou les deux)\033[0m" << std::endl;
+
         }
+
     }
 
     return 0;

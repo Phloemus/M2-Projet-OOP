@@ -5,8 +5,43 @@
       "radioId" : 1
    },
    {
-      "filename" : "fichier.jpg",
+      "filename" : "fichier2.jpg",
       "id" : 3,
       "radioId" : 1
+   },
+   {
+      "filename" : "fichier3.jpg",
+      "id" : 4,
+      "radioId" : 1
+   },
+   {
+      "filename" : "fichier12.jpg",
+      "id" : 5,
+      "radioId" : 1
+   },
+   {
+      "filename" : "photo-poumon.jpg",
+      "id" : 6,
+      "radioId" : 2
+   },
+   {
+      "filename" : "photo-poumon-officielle.jpg",
+      "id" : 7,
+      "radioId" : 2
+   },
+   {
+      "filename" : "photo-coxis.jpg",
+      "id" : 8,
+      "radioId" : 3
+   },
+   {
+      "filename" : "photo-cubitus.jpg",
+      "id" : 9,
+      "radioId" : 4
+   },
+   {
+      "filename" : "photo-a-supprimer.jpg",
+      "id" : 10,
+      "radioId" : 5
    }
 ]
