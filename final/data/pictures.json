@@ -43,5 +43,25 @@
       "filename" : "photo-a-supprimer.jpg",
       "id" : 10,
       "radioId" : 5
+   },
+   {
+      "filename" : "photo-a-poumon1.jpg",
+      "id" : 11,
+      "radioId" : 6
+   },
+   {
+      "filename" : "photo-a-poumon2.jpg",
+      "id" : 11,
+      "radioId" : 6
+   },
+   {
+      "filename" : "photo-bronches.jpg",
+      "id" : 12,
+      "radioId" : 6
+   },
+   {
+      "filename" : "photo-a-jambe-droite1.jpg",
+      "id" : 12,
+      "radioId" : 7
    }
 ]

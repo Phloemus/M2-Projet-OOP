@@ -10,5 +10,11 @@
       "name" : "D.Raoult",
       "password" : "chloroquine",
       "status" : "Dr"
+   },
+   {
+      "id": 2,
+      "name": "docteur",
+      "password": "1234",
+      "status": "Dr"
    }
 ]

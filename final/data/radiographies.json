@@ -63,5 +63,31 @@
       "patientId" : 1,
       "state" : "faite",
       "type" : "Radio a delete"
+   },
+   {
+      "date" : 
+      {
+         "day" : 24,
+         "month" : 11,
+         "year" : 22
+      },
+      "doctorId" : 2,
+      "id" : 6,
+      "patientId" : 2,
+      "state" : "faite",
+      "type" : "Radio Poumons"
+   },
+   {
+      "date" : 
+      {
+         "day" : 24,
+         "month" : 11,
+         "year" : 22
+      },
+      "doctorId" : 2,
+      "id" : 7,
+      "patientId" : 1,
+      "state" : "effectue",
+      "type" : "Radio jambe droite"
    }
 ]
